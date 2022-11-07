@@ -1,0 +1,152 @@
+[
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "BTC",
+      "quote": "USDT",
+      "tokenA": "0xC15bec4743157cfaF214365Af36374116d8285a6",
+      "tokenB": "0x75AA60668aDcbC064049a496B70caAEfa1d272d5",
+      "tokenC": "0xcB9489180A08273Bb93e8162B3f2A5D7A343372F",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-BTC/USDT-18",
+    "pairId": "0x9f3a02ad48a53d7a78ecde8447369718dad4cb83d1dbb6e852af344b6958696f",
+    "chainId": 322
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "ETH",
+      "quote": "USDT",
+      "tokenA": "0x208EecDBc49C137D0174B848DEf5F8cB74d6951E",
+      "tokenB": "0x75AA60668aDcbC064049a496B70caAEfa1d272d5",
+      "tokenC": "0xcB9489180A08273Bb93e8162B3f2A5D7A343372F",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-ETH/USDT-18",
+    "pairId": "0xc27a9ec66481b5654fa106f0ff4953f464c930ddeadc29dff13c50670c0d8cf7",
+    "chainId": 322
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "KCS",
+      "quote": "USDT",
+      "tokenA": "0x75AA60668aDcbC064049a496B70caAEfa1d272d5",
+      "tokenB": "0x0000000000000000000000000000000000000000",
+      "tokenC": "0xcB9489180A08273Bb93e8162B3f2A5D7A343372F",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-KCS/USDT-18",
+    "pairId": "0x10e4b55f0e4ec1ba07c58b6aac7d37f5a218efc2c3f4f4b637934b65573eb19d",
+    "chainId": 322
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "MJT",
+      "quote": "USDT",
+      "tokenA": "0xe6759638e9D6C982307ffe3Ac757cD9CC8D1ba49",
+      "tokenB": "0x0000000000000000000000000000000000000000",
+      "tokenC": "0xcB9489180A08273Bb93e8162B3f2A5D7A343372F",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-MJT/USDT-18",
+    "pairId": "0xcef32d3651d74bf39b0f08c22a7ec83cc66c029645f1a915ee050fb74242e21a",
+    "chainId": 322
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "USDC",
+      "quote": "USDT",
+      "tokenA": "0x208EecDBc49C137D0174B848DEf5F8cB74d6951E",
+      "tokenB": "0x0000000000000000000000000000000000000000",
+      "tokenC": "0xD6c7E27a598714c2226404Eb054e0c074C906Fc9",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-USDC/USDT-18",
+    "pairId": "0x0cf25c1cf37d7aba87b730218eba67b54738879302f4ebbc32f8b11505db2084",
+    "chainId": 322
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "BTC",
+      "quote": "USDT",
+      "tokenA": "0xfa93c12cd345c658bc4644d1d4e1b9615952258c",
+      "tokenB": "0x4446Fc4eb47f2f6586f9fAAb68B3498F86C07521",
+      "tokenC": "0x0039f574eE5cC39bdD162E9A88e3EB1f111bAF48",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-BTC/USDT-18",
+    "pairId": "0x9f3a02ad48a53d7a78ecde8447369718dad4cb83d1dbb6e852af344b6958696f",
+    "chainId": 321
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "ETH",
+      "quote": "USDT",
+      "tokenA": "0xf55af137a98607f7ed2efefa4cd2dfe70e4253b1",
+      "tokenB": "0x4446Fc4eb47f2f6586f9fAAb68B3498F86C07521",
+      "tokenC": "0x0039f574eE5cC39bdD162E9A88e3EB1f111bAF48",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-ETH/USDT-18",
+    "pairId": "0xc27a9ec66481b5654fa106f0ff4953f464c930ddeadc29dff13c50670c0d8cf7",
+    "chainId": 321
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "KCS",
+      "quote": "USDT",
+      "tokenA": "0x4446Fc4eb47f2f6586f9fAAb68B3498F86C07521",
+      "tokenB": "0x0000000000000000000000000000000000000000",
+      "tokenC": "0x0039f574eE5cC39bdD162E9A88e3EB1f111bAF48",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-KCS/USDT-18",
+    "pairId": "0x10e4b55f0e4ec1ba07c58b6aac7d37f5a218efc2c3f4f4b637934b65573eb19d",
+    "chainId": 321
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "MJT",
+      "quote": "USDT",
+      "tokenA": "0x2cA48b4eeA5A731c2B54e7C3944DBDB87c0CFB6F",
+      "tokenB": "0x0000000000000000000000000000000000000000",
+      "tokenC": "0x0039f574eE5cC39bdD162E9A88e3EB1f111bAF48",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-MJT/USDT-18",
+    "pairId": "0xcef32d3651d74bf39b0f08c22a7ec83cc66c029645f1a915ee050fb74242e21a",
+    "chainId": 321
+  },
+  {
+    "set": true,
+    "feedConfig": {
+      "base": "USDC",
+      "quote": "USDT",
+      "tokenA": "0x980a5afef3d17ad98635f6c5aebcbaeded3c3430",
+      "tokenB": "0x0000000000000000000000000000000000000000",
+      "tokenC": "0x0039f574eE5cC39bdD162E9A88e3EB1f111bAF48",
+      "tokenABaseUnit": "1000000000000000000",
+      "tokenCBaseUnit": "1000000000000000000"
+    },
+    "caption": "Price-USDC/USDT-18",
+    "pairId": "0x0cf25c1cf37d7aba87b730218eba67b54738879302f4ebbc32f8b11505db2084",
+    "chainId": 321
+  }
+]

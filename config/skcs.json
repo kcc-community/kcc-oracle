@@ -1,0 +1,18 @@
+{
+  "testnet":{
+    "skcs": "0x311dD61dF0E88dDc6803e7353F5d9B71522AedA9",
+    "kcsUsdAggregatorProxy": "0xae3DB39196012a7bF6D38737192F260cdFE1E7Ec",
+    "lowerBoundExchangeRate": "1000000000000000000",
+    "upperBoundExchangeRate": "1200000000000000000",
+    "skcsUsdAggregator": "0xee3430a4c0ad6b140D1a86F3f21d64A7950e5514",
+    "skcsUsdAggregatorProxy": "0xAAf1A426D4b5D57c55E67f6eCc2918c698D94359"
+  },
+  "mainnet": {
+    "skcs": "0x00eE2d494258D6C5A30d6B6472A09b27121Ef451",
+    "kcsUsdAggregator": "0xAFC9c849b1a784955908d91EE43A3203fBC1f950",
+    "lowerBoundExchangeRate": "1000000000000000000",
+    "upperBoundExchangeRate": "1200000000000000000",
+    "skcsUsdAggregator": "0x355f45dA085FC5fCD55b2b6bC991c773a1fe80a6",
+    "skcsUsdAggregatorProxy": "0xAAf1A426D4b5D57c55E67f6eCc2918c698D94359"
+  }
+}
