@@ -1,0 +1,17 @@
+
+.idea
+tool
+.env
+
+deployments
+artifacts
+cache
+solc
+abi
+coverage
+coverage.json
+typechain
+
+truffle-config.js
+node_modules
+yarn.lock

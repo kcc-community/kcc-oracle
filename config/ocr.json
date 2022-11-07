@@ -1,0 +1,262 @@
+[
+  {
+    "description": "BTC / USD",
+    "ocr_address": "0xC51898c389d3591B9A15b9302A79B143058b4255",
+    "proxy_address": "0xBb3423a913a9a69aD7Dba09B62abdFDE4643BAe4",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": true,
+      "pairA": "0x9f3a02ad48a53d7a78ecde8447369718dad4cb83d1dbb6e852af344b6958696f",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x24beead43216e490aa240ef0d32e18c57beea168f06eabb94f5193868d500946",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": false,
+    "chainId": 322
+  },
+  {
+    "description": "ETH / USD",
+    "ocr_address": "0xC86C325bd7889b222e86a19C719FbF59E3035DD4",
+    "proxy_address": "0x22337a9a305E081c0C801dd7B7b8eCF4966660bB",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0xc27a9ec66481b5654fa106f0ff4953f464c930ddeadc29dff13c50670c0d8cf7",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x3d15f7018db5cc80838b684361aaa100bfadf8a11e02d5c1c92e9c6af47626c8",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": false,
+    "chainId": 322
+  },
+  {
+    "description": "KCS / USD",
+    "ocr_address": "0x5E71dbD99E1b1F4b2d17Ae5908D17481980aA712",
+    "proxy_address": "0xae3DB39196012a7bF6D38737192F260cdFE1E7Ec",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0x10e4b55f0e4ec1ba07c58b6aac7d37f5a218efc2c3f4f4b637934b65573eb19d",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x31debffc453c5d04a78431e7bc28098c606d2bbeea22f10a35809924a201a977",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": false,
+    "chainId": 322
+  },
+  {
+    "description": "SAND / USD",
+    "ocr_address": "0xf0199172269eA56446359de5c235f6a061E624e3",
+    "proxy_address": "0xC249689AeC2764e63337AcA76800A4D2db3B801e",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0x9f3a02ad48a53d7a78ecde8447369718dad4cb83d1dbb6e852af344b6958696f",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x24beead43216e490aa240ef0d32e18c57beea168f06eabb94f5193868d500946",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": true,
+    "chainId": 322
+  },
+  {
+    "description": "MJT / USD",
+    "ocr_address": "0xEd27394f20FC294dAA334Cd8eef2260f0241D7F0",
+    "proxy_address": "0x11Eb72402ABA2031dAc555F158e23614009b1b6f",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0xcef32d3651d74bf39b0f08c22a7ec83cc66c029645f1a915ee050fb74242e21a",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x2dcfd5546926b857978957b40dcd5164cc788079b46ce9c1abbaedac07f96837",
+      "pairB": "0x31debffc453c5d04a78431e7bc28098c606d2bbeea22f10a35809924a201a977",
+      "pairABaseUint": "1000000000",
+      "pairBBaseUint": "1000000"
+    },
+    "deploy": false,
+    "chainId": 322
+  },
+  {
+    "description": "USDT / USD",
+    "ocr_address": "0x1CB203F5567EBe4B91eC624592d4D0B329080cbA",
+    "proxy_address": "0x2bE470B8BD3CF5655dcC666CDe37E3E4D6cf3168",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0x0cf25c1cf37d7aba87b730218eba67b54738879302f4ebbc32f8b11505db2084",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x538f5a25b39995a23c24037d2d38f979c8fa7b00d001e897212d936e6f6556ef",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": false,
+    "chainId": 322
+  },
+  {
+    "description": "USDC / USD",
+    "ocr_address": "0x306A4D88fc012916656b9D1EBd8386562dc4d461",
+    "proxy_address": "0x91b66dAd926FaC824da9390D1aF6f68db391A5c0",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0x0cf25c1cf37d7aba87b730218eba67b54738879302f4ebbc32f8b11505db2084",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x4c80cf2e5b3d17b98f6f24fc78f661982b8ef656c3b75a038f7bfc6f93c1b20e",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": false,
+    "chainId": 322
+  },
+  {
+    "description": "BTC / USD",
+    "ocr_address": "0x13cc7A061Ee93157f2bcE90645cD9f754428e08A",
+    "proxy_address": "0xFAce3f85602A8dc013217b61a97a9AFE7B2F276F",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": true,
+      "pairA": "0x9f3a02ad48a53d7a78ecde8447369718dad4cb83d1dbb6e852af344b6958696f",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x24beead43216e490aa240ef0d32e18c57beea168f06eabb94f5193868d500946",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": true,
+    "chainId": 321
+  },
+  {
+    "description": "ETH / USD",
+    "ocr_address": "0x0948C486F5CEDfb22CBc55DD2a3C9841043550Dd",
+    "proxy_address": "0x72E10386eBE0E3175f62BF3Edfc9A64aC3c5918a",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": true,
+      "pairA": "0xc27a9ec66481b5654fa106f0ff4953f464c930ddeadc29dff13c50670c0d8cf7",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x3d15f7018db5cc80838b684361aaa100bfadf8a11e02d5c1c92e9c6af47626c8",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": true,
+    "chainId": 321
+  },
+  {
+    "description": "KCS / USD",
+    "ocr_address": "0xF12d64D3d51AC263cd5e41fd6b634E9A55F2A0d9",
+    "proxy_address": "0xAFC9c849b1a784955908d91EE43A3203fBC1f950",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": true,
+      "pairA": "0x10e4b55f0e4ec1ba07c58b6aac7d37f5a218efc2c3f4f4b637934b65573eb19d",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x31debffc453c5d04a78431e7bc28098c606d2bbeea22f10a35809924a201a977",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": false,
+    "chainId": 321
+  },
+  {
+    "description": "MJT / USD",
+    "ocr_address": "0xa10DD65F2231Aea80f7d3BC53789d520620A4291",
+    "proxy_address": "0x5eF7D0B6C63c9F0b0b056416B2dBA95cC02473a3",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": true,
+      "pairA": "0xcef32d3651d74bf39b0f08c22a7ec83cc66c029645f1a915ee050fb74242e21a",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x2dcfd5546926b857978957b40dcd5164cc788079b46ce9c1abbaedac07f96837",
+      "pairB": "0x31debffc453c5d04a78431e7bc28098c606d2bbeea22f10a35809924a201a977",
+      "pairABaseUint": "1000000000",
+      "pairBBaseUint": "1000000"
+    },
+    "deploy": true,
+    "chainId": 321
+  },
+  {
+    "description": "USDT / USD",
+    "ocr_address": "0xbFBE130ce1302118e90148eeaeb5Ce0ad73a0c11",
+    "proxy_address": "0x001c1a168ba2a36D01a99542740C375c51615161",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0x0cf25c1cf37d7aba87b730218eba67b54738879302f4ebbc32f8b11505db2084",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x538f5a25b39995a23c24037d2d38f979c8fa7b00d001e897212d936e6f6556ef",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": true,
+    "chainId": 321
+  },
+  {
+    "description": "USDC / USD",
+    "ocr_address": "0x0f10d056b488ED7ad72EabE677A2fa5Bd665ef67",
+    "proxy_address": "0x1A165db46d431804B0082eb5BEbc307ffb97e31b",
+    "decimals": 8,
+    "mojitoConfig": {
+      "available": false,
+      "pairA": "0x0cf25c1cf37d7aba87b730218eba67b54738879302f4ebbc32f8b11505db2084",
+      "pairABaseUnit": "1000000000000000000"
+    },
+    "witnetConfig":{
+      "available": true,
+      "pairA": "0x4c80cf2e5b3d17b98f6f24fc78f661982b8ef656c3b75a038f7bfc6f93c1b20e",
+      "pairB": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pairABaseUint": "1000000",
+      "pairBBaseUint": "0"
+    },
+    "deploy": true,
+    "chainId": 321
+  }
+]
