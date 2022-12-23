@@ -1,9 +1,9 @@
 import { ethers } from 'hardhat'
-import { numToBytes32, publicAbi } from './test-helpers/helpers'
+import { numToBytes32, publicAbi } from '../test-helpers/helpers'
 import { assert } from 'chai'
 import { BigNumber, constants, Contract, ContractFactory, Signer } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
-import { bigNumEquals, evmRevert } from './test-helpers/matchers'
+import { Personas, getUsers } from '../test-helpers/setup'
+import { bigNumEquals, evmRevert } from '../test-helpers/matchers'
 
 let personas: Personas
 let defaultAccount: Signer
@@ -22,31 +22,31 @@ before(async () => {
   defaultAccount = users.roles.defaultAccount
 
   aggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV3Aggregator.sol:MockV3Aggregator',
+    'contracts/v0.7/tests/MockV3Aggregator.sol:MockV3Aggregator',
     defaultAccount,
   )
   historicAggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV2Aggregator.sol:MockV2Aggregator',
+    'contracts/v0.7/tests/MockV2Aggregator.sol:MockV2Aggregator',
     defaultAccount,
   )
   aggregatorFacadeFactory = await ethers.getContractFactory(
-    'contracts/tests/AggregatorFacade.sol:AggregatorFacade',
+    'contracts/v0.7/tests/AggregatorFacade.sol:AggregatorFacade',
     defaultAccount,
   )
   historicAggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV2Aggregator.sol:MockV2Aggregator',
+    'contracts/v0.7/tests/MockV2Aggregator.sol:MockV2Aggregator',
     defaultAccount,
   )
   aggregatorProxyFactory = await ethers.getContractFactory(
-    'contracts/AggregatorProxy.sol:AggregatorProxy',
+    'contracts/v0.7/AggregatorProxy.sol:AggregatorProxy',
     defaultAccount,
   )
   ocrAggregatorFactory = await ethers.getContractFactory(
-    'contracts/AccessControlledOffchainAggregator.sol:AccessControlledOffchainAggregator',
+    'contracts/v0.7/AccessControlledOffchainAggregator.sol:AccessControlledOffchainAggregator',
     defaultAccount,
   )
   reverterFactory = await ethers.getContractFactory(
-    'contracts/tests/Reverter.sol:Reverter',
+    'contracts/v0.7/tests/Reverter.sol:Reverter',
     defaultAccount,
   )
 })

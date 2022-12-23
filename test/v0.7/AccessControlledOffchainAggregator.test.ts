@@ -8,9 +8,9 @@ import {
   ContractTransaction,
   Signer,
 } from 'ethers'
-import { getUsers, Personas } from './test-helpers/setup'
-import { bigNumEquals } from './test-helpers/matchers'
-import { publicAbi } from './test-helpers/helpers'
+import { getUsers, Personas } from '../test-helpers/setup'
+import { bigNumEquals } from '../test-helpers/matchers'
+import { publicAbi } from '../test-helpers/helpers'
 
 let personas: Personas
 let acocrAggregatorFactory: ContractFactory
@@ -21,16 +21,16 @@ let witnetPriceTestFactory: ContractFactory
 before(async () => {
   personas = (await getUsers()).personas
   acocrAggregatorFactory = await ethers.getContractFactory(
-    'contracts/AccessControlledOffchainAggregator.sol:AccessControlledOffchainAggregator',
+    'contracts/v0.7/AccessControlledOffchainAggregator.sol:AccessControlledOffchainAggregator',
   )
   ocrTestFactory = await ethers.getContractFactory(
-    'contracts/tests/OCRTestHelper.sol:OCRTestHelper',
+    'contracts/v0.7/tests/OCRTestHelper.sol:OCRTestHelper',
   )
   mojitoOracleTestFactory = await ethers.getContractFactory(
-    'contracts/tests/MockMojitoOracle.sol:MockMojitoOracle',
+    'contracts/v0.7/tests/MockMojitoOracle.sol:MockMojitoOracle',
   )
   witnetPriceTestFactory = await ethers.getContractFactory(
-    'contracts/tests/MockWitnetPriceRouter.sol:MockWitnetPriceRouter',
+    'contracts/v0.7/tests/MockWitnetPriceRouter.sol:MockWitnetPriceRouter',
   )
 })
 

@@ -1,12 +1,12 @@
 import { ethers } from 'hardhat'
-import { publicAbi } from './test-helpers/helpers'
+import { publicAbi } from '../test-helpers/helpers'
 import { assert, expect } from 'chai'
 import { Contract, ContractFactory, Signer } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
-import { evmRevert } from './test-helpers/matchers'
+import { Personas, getUsers } from '../test-helpers/setup'
+import { evmRevert } from '../test-helpers/matchers'
 
 let confirmedOwnerTestHelperFactory: ContractFactory
-let ConfirmedOwnerWithProposalFactory: ContractFactory
+let confirmedOwnerFactory: ContractFactory
 
 let personas: Personas
 let owner: Signer
@@ -21,16 +21,16 @@ before(async () => {
   newOwner = personas.Ned
 
   confirmedOwnerTestHelperFactory = await ethers.getContractFactory(
-    'contracts/tests/ConfirmedOwnerTestHelper.sol:ConfirmedOwnerTestHelper',
+    'contracts/v0.7/tests/ConfirmedOwnerTestHelper.sol:ConfirmedOwnerTestHelper',
     owner,
   )
-  ConfirmedOwnerWithProposalFactory = await ethers.getContractFactory(
-    'contracts//ConfirmedOwnerWithProposal.sol:ConfirmedOwnerWithProposal',
+  confirmedOwnerFactory = await ethers.getContractFactory(
+    'contracts/v0.7//ConfirmedOwner.sol:ConfirmedOwner',
     owner,
   )
 })
 
-describe('ConfirmedOwnerWithProposal', () => {
+describe('ConfirmedOwner', () => {
   let confirmedOwner: Contract
 
   beforeEach(async () => {
@@ -61,22 +61,11 @@ describe('ConfirmedOwnerWithProposal', () => {
 
     it('reverts if assigned to the zero address', async () => {
       await evmRevert(
-        ConfirmedOwnerWithProposalFactory.connect(owner).deploy(
-          ethers.constants.AddressZero,
-          ethers.constants.AddressZero,
-        ),
+        confirmedOwnerFactory
+          .connect(owner)
+          .deploy(ethers.constants.AddressZero),
         'Cannot set owner to zero',
       )
-    })
-
-    it('reverts if pending owner is zero address', async () => {
-      const cowp = await ConfirmedOwnerWithProposalFactory.connect(
-        owner,
-      ).deploy(
-        await personas.Carol.getAddress(),
-        await personas.Eddy.getAddress(),
-      )
-      assert.equal(await personas.Carol.getAddress(), await cowp.owner())
     })
   })
 

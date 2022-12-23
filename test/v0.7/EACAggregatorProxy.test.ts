@@ -1,9 +1,9 @@
 import { ethers } from 'hardhat'
-import { increaseTimeBy, numToBytes32, publicAbi } from './test-helpers/helpers'
+import { increaseTimeBy, numToBytes32, publicAbi } from '../test-helpers/helpers'
 import { assert, expect } from 'chai'
 import { BigNumber, constants, Contract, ContractFactory, Signer } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
-import { bigNumEquals, evmRevert } from './test-helpers/matchers'
+import { Personas, getUsers } from '../test-helpers/setup'
+import { bigNumEquals, evmRevert } from '../test-helpers/matchers'
 
 let personas: Personas
 let defaultAccount: Signer
@@ -24,39 +24,39 @@ before(async () => {
   defaultAccount = users.roles.defaultAccount
 
   aggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV3Aggregator.sol:MockV3Aggregator',
+    'contracts/v0.7/tests/MockV3Aggregator.sol:MockV3Aggregator',
     defaultAccount,
   )
   historicAggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV2Aggregator.sol:MockV2Aggregator',
+    'contracts/v0.7/tests/MockV2Aggregator.sol:MockV2Aggregator',
     defaultAccount,
   )
   aggregatorFacadeFactory = await ethers.getContractFactory(
-    'contracts/tests/AggregatorFacade.sol:AggregatorFacade',
+    'contracts/v0.7/tests/AggregatorFacade.sol:AggregatorFacade',
     defaultAccount,
   )
   historicAggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV2Aggregator.sol:MockV2Aggregator',
+    'contracts/v0.7/tests/MockV2Aggregator.sol:MockV2Aggregator',
     defaultAccount,
   )
   controllerFactory = await ethers.getContractFactory(
-    'contracts/SimpleReadAccessController.sol:SimpleReadAccessController',
+    'contracts/v0.7/SimpleReadAccessController.sol:SimpleReadAccessController',
     personas.Carol,
   )
   feedConsumerFactory = await ethers.getContractFactory(
-    'contracts/tests/FeedConsumer.sol:FeedConsumer',
+    'contracts/v0.7/tests/FeedConsumer.sol:FeedConsumer',
     defaultAccount,
   )
   eacAggregatorProxyFactory = await ethers.getContractFactory(
-    'contracts/EACAggregatorProxy.sol:EACAggregatorProxy',
+    'contracts/v0.7/EACAggregatorProxy.sol:EACAggregatorProxy',
     defaultAccount,
   )
   ocrAggregatorFactory = await ethers.getContractFactory(
-    'contracts/AccessControlledOffchainAggregator.sol:AccessControlledOffchainAggregator',
+    'contracts/v0.7/AccessControlledOffchainAggregator.sol:AccessControlledOffchainAggregator',
     defaultAccount,
   )
   reverterFactory = await ethers.getContractFactory(
-    'contracts/tests/Reverter.sol:Reverter',
+    'contracts/v0.7/tests/Reverter.sol:Reverter',
     defaultAccount,
   )
 })
