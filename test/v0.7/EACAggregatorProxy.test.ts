@@ -1,5 +1,9 @@
 import { ethers } from 'hardhat'
-import { increaseTimeBy, numToBytes32, publicAbi } from '../test-helpers/helpers'
+import {
+  increaseTimeBy,
+  numToBytes32,
+  publicAbi,
+} from '../test-helpers/helpers'
 import { assert, expect } from 'chai'
 import { BigNumber, constants, Contract, ContractFactory, Signer } from 'ethers'
 import { Personas, getUsers } from '../test-helpers/setup'
@@ -404,7 +408,7 @@ describe('EACAggregatorProxy', () => {
         beforeEach(async () => {
           const facade = await aggregatorFacadeFactory
             .connect(defaultAccount)
-            .deploy(aggregator.address, 18, 'LINK/USD: Aggregator Facade')
+            .deploy(aggregator.address, 18, 'KCS/USD: Aggregator Facade')
           await proxy.proposeAggregator(facade.address)
           await proxy.confirmAggregator(facade.address)
         })

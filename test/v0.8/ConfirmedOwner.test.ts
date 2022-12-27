@@ -25,7 +25,7 @@ before(async () => {
     owner,
   )
   confirmedOwnerFactory = await ethers.getContractFactory(
-    'contracts/v0.7/ConfirmedOwner.sol:ConfirmedOwner',
+    'contracts/v0.8/ConfirmedOwner.sol:ConfirmedOwner',
     owner,
   )
 })

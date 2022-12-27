@@ -6,7 +6,7 @@ import { Personas, getUsers } from '../test-helpers/setup'
 import { evmRevert } from '../test-helpers/matchers'
 
 let confirmedOwnerTestHelperFactory: ContractFactory
-let confirmedOwnerFactory: ContractFactory
+let ConfirmedOwnerWithProposalFactory: ContractFactory
 
 let personas: Personas
 let owner: Signer
@@ -24,13 +24,13 @@ before(async () => {
     'contracts/v0.7/tests/ConfirmedOwnerTestHelper.sol:ConfirmedOwnerTestHelper',
     owner,
   )
-  confirmedOwnerFactory = await ethers.getContractFactory(
-    'contracts/v0.7/ConfirmedOwner.sol:ConfirmedOwner',
+  ConfirmedOwnerWithProposalFactory = await ethers.getContractFactory(
+    'contracts/v0.8//ConfirmedOwnerWithProposal.sol:ConfirmedOwnerWithProposal',
     owner,
   )
 })
 
-describe('ConfirmedOwner', () => {
+describe('ConfirmedOwnerWithProposal', () => {
   let confirmedOwner: Contract
 
   beforeEach(async () => {
@@ -61,11 +61,22 @@ describe('ConfirmedOwner', () => {
 
     it('reverts if assigned to the zero address', async () => {
       await evmRevert(
-        confirmedOwnerFactory
-          .connect(owner)
-          .deploy(ethers.constants.AddressZero),
+        ConfirmedOwnerWithProposalFactory.connect(owner).deploy(
+          ethers.constants.AddressZero,
+          ethers.constants.AddressZero,
+        ),
         'Cannot set owner to zero',
       )
+    })
+
+    it('reverts if pending owner is zero address', async () => {
+      const cowp = await ConfirmedOwnerWithProposalFactory.connect(
+        owner,
+      ).deploy(
+        await personas.Carol.getAddress(),
+        await personas.Eddy.getAddress(),
+      )
+      assert.equal(await personas.Carol.getAddress(), await cowp.owner())
     })
   })
 
