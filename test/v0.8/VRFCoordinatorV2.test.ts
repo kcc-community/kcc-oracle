@@ -26,6 +26,8 @@ describe('VRFCoordinatorV2', () => {
     fulfillmentFlatFeePPM: number
   }
   let c: config
+  let publicKeyX: string
+  let publicKeyY: string
 
   beforeEach(async () => {
     const accounts = await ethers.getSigners()
@@ -94,6 +96,11 @@ describe('VRFCoordinatorV2', () => {
       )
 
     assert.equal(typeAndVersion, await vrfCoordinatorV2.typeAndVersion())
+
+    publicKeyX =
+      '86587696668094039518870828352963279197493118319675727222471040758220131914677'
+    publicKeyY =
+      '9394920586239190567061874012122989536995544556309582193285181985153876435357'
   })
 
   it('has a limited public interface [ @skip-coverage ]', async () => {
@@ -632,8 +639,25 @@ describe('VRFCoordinatorV2', () => {
     let kh: string
     beforeEach(async () => {
       subId = await createSubscription()
-      const testKey = [BigNumber.from('1'), BigNumber.from('2')]
+      const testKey = [BigNumber.from(publicKeyX), BigNumber.from(publicKeyY)]
       kh = await vrfCoordinatorV2.hashOfKey(testKey)
+      await expect(
+        vrfCoordinatorV2.registerProvingKey(subOwnerAddress, testKey),
+      )
+    })
+    it('no such provingKey', async function () {
+      const testKey = [BigNumber.from(publicKeyX), BigNumber.from(publicKeyY)]
+      await expect(vrfCoordinatorV2.deregisterProvingKey(testKey)).to.not.be
+        .reverted
+      await expect(
+        vrfCoordinatorV2.connect(random).requestRandomWords(
+          kh, // keyhash
+          subId, // subId
+          1, // minReqConf
+          1000, // callbackGasLimit
+          1, // numWords
+        ),
+      ).to.be.revertedWith(`NoSuchProvingKey("${kh.toString()}")`)
     })
     it('invalid subId', async function () {
       await expect(

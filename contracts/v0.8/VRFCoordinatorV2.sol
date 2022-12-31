@@ -315,6 +315,10 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
     if (s_subscriptionConfigs[subId].owner == address(0)) {
       revert InvalidSubscription();
     }
+    address oracle = s_provingKeys[keyHash];
+    if (oracle == address(0)) {
+      revert NoSuchProvingKey(keyHash);
+    }
     // Its important to ensure that the consumer is in fact who they say they
     // are, otherwise they could use someone else's subscription balance.
     // A nonce of 0 indicates consumer is not allocated to the sub.
@@ -342,9 +346,6 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
       revert InvalidNumWords(numWords, MIN_NUM_WORDS, MAX_NUM_WORDS);
     }
 
-    // Note we do not check whether the keyHash is valid to save gas.
-    // The consequence for users is that they can send requests
-    // for invalid keyHashes which will simply not be fulfilled.
     uint64 nonce = currentNonce + 1;
     (uint256 requestId, uint256 preSeed) = computeRequestId(keyHash, msg.sender, subId, nonce);
 
