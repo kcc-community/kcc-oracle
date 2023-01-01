@@ -539,6 +539,9 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
    * @param amount amount to withdraw
    */
   function oracleWithdraw(address recipient, uint256 amount) external nonReentrant {
+    if (amount == 0) {
+      amount = s_withdrawableTokens[msg.sender];
+    }
     if (s_withdrawableTokens[msg.sender] < amount) {
       revert InsufficientBalance();
     }

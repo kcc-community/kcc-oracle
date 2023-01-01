@@ -914,6 +914,19 @@ describe('VRFCoordinatorV2', () => {
         )
       assert(oracleWithdrawable == 0)
     })
+    it('withdraw', async function () {
+      await expect(
+        vrfCoordinatorV2
+          .connect(oracle)
+          .oracleWithdraw(randomAddressString(), BigNumber.from('0')),
+      ).to.not.be.reverted
+
+      const oracleWithdrawable =
+        await vrfCoordinatorV2.getOracleWithdrawableTokens(
+          await oracle.getAddress(),
+        )
+      assert(oracleWithdrawable == 0)
+    })
   })
 
   describe('#calculatePaymentAmount [ @skip-coverage ]', async function () {
