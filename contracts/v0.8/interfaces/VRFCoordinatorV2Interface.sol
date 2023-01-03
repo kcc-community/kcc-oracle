@@ -60,7 +60,6 @@ interface VRFCoordinatorV2Interface {
    * @notice Get a VRF subscription.
    * @param subId - ID of the subscription
    * @return balance - WKCS balance of the subscription in juels.
-   * @return reqCount - number of requests for this subscription, determines fee tier.
    * @return owner - owner of the subscription.
    * @return consumers - list of consumer address which are able to use this subscription.
    */
@@ -69,7 +68,6 @@ interface VRFCoordinatorV2Interface {
     view
     returns (
       uint256 balance,
-      uint64 reqCount,
       address owner,
       address[] memory consumers
     );

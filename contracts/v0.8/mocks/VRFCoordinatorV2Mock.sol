@@ -205,7 +205,6 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface {
     override
     returns (
       uint256 balance,
-      uint64 reqCount,
       address owner,
       address[] memory consumers
     )
@@ -213,7 +212,7 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface {
     if (s_subscriptions[_subId].owner == address(0)) {
       revert InvalidSubscription();
     }
-    return (s_subscriptions[_subId].balance, 0, s_subscriptions[_subId].owner, s_consumers[_subId]);
+    return (s_subscriptions[_subId].balance, s_subscriptions[_subId].owner, s_consumers[_subId]);
   }
 
   function cancelSubscription(uint64 _subId, address _to) external override onlySubOwner(_subId) {

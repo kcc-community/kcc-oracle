@@ -31,7 +31,6 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
   // at fulfillment time.
   struct Subscription {
     uint256 balance; // Common wkcs balance used for all consumer requests.
-    uint64 reqCount; // For fee tiers
   }
   // We use the config for the mgmt APIs
   struct SubscriptionConfig {
@@ -491,8 +490,6 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
     bool success = callWithExactGas(rc.callbackGasLimit, rc.sender, resp);
     s_config.reentrancyLock = false;
     // Increment the req count for fee tier selection.
-    // uint64 reqCount = s_subscriptions[rc.subId].reqCount;
-    s_subscriptions[rc.subId].reqCount += 1;
     // We want to charge users exactly for how much gas they use in their callback.
     // The gasAfterPaymentCalculation is meant to cover these additional operations where we
     // decrement the subscription balance and increment the oracles withdrawable balance.
@@ -614,7 +611,6 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
     override
     returns (
       uint256 balance,
-      uint64 reqCount,
       address owner,
       address[] memory consumers
     )
@@ -622,12 +618,7 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
     if (s_subscriptionConfigs[subId].owner == address(0)) {
       revert InvalidSubscription();
     }
-    return (
-      s_subscriptions[subId].balance,
-      s_subscriptions[subId].reqCount,
-      s_subscriptionConfigs[subId].owner,
-      s_subscriptionConfigs[subId].consumers
-    );
+    return (s_subscriptions[subId].balance, s_subscriptionConfigs[subId].owner, s_subscriptionConfigs[subId].consumers);
   }
 
   /**
@@ -637,7 +628,7 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
     s_currentSubId++;
     uint64 currentSubId = s_currentSubId;
     address[] memory consumers = new address[](0);
-    s_subscriptions[currentSubId] = Subscription({balance: 0, reqCount: 0});
+    s_subscriptions[currentSubId] = Subscription({balance: 0});
     s_subscriptionConfigs[currentSubId] = SubscriptionConfig({
       owner: msg.sender,
       requestedOwner: address(0),
@@ -714,7 +705,7 @@ contract VRFCoordinatorV2 is VRF, ConfirmedOwner, TypeAndVersionInterface, VRFCo
     }
     if (s_consumers[consumer][subId] != 0) {
       // Idempotence - do nothing if already added.
-      // Ensures uniqueness in s_subscriptions[subId].consumers.
+      // Ensures uniqueness in s_subscriptionConfigs[subId].consumers.
       return;
     }
     // Initialize the nonce to 1, indicating the consumer is allocated.
