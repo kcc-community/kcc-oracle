@@ -31,6 +31,7 @@
     "kt:deploy": "hardhat --network kt deploy",
     "km:deploy": "hardhat --network km deploy",
     "kt:setconfig": "npx hardhat run scripts/setConfig.js --network kt",
+    "kt:sac": "npx hardhat run scripts/setAocrConfig.js --network kt",
     "coverage": "hardhat coverage",
     "setup": "yarn compile",
     "prettier": "prettier --write test/**/*.ts && prettier --write contracts/**/*.sol && prettier --write contracts/**/*/*.sol && prettier --write test/**/*/*.ts"

@@ -14,6 +14,7 @@ contract AccessControlledOffchainAggregator is OffchainAggregator, SimpleReadAcc
     uint8 _decimals,
     string memory _description,
     address _mojitoOracle,
+    address _pythOracle,
     address _witnetOracle,
     bool _validateAnswerEnabled
   )
@@ -23,6 +24,7 @@ contract AccessControlledOffchainAggregator is OffchainAggregator, SimpleReadAcc
       _decimals,
       _description,
       _mojitoOracle,
+      _pythOracle,
       _witnetOracle,
       _validateAnswerEnabled
     )

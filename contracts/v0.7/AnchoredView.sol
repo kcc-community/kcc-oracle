@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
+pragma abicoder v2;
 
 import "./interfaces/IMojitoOracle.sol";
+import "./interfaces/IPythOracle.sol";
 import "./interfaces/IERC2362.sol";
 import "./OwnerIsCreator.sol";
 import "./SafeMath.sol";
@@ -24,6 +26,18 @@ contract AnchoredView is OwnerIsCreator {
   /// @notice emitted when mojito config are set
   event MojitoConfigSet(bool available, bytes32 pairA, uint256 pairABaseUnit);
 
+  struct PythConfig {
+    bool available;
+    uint256 stalenessSeconds;
+    bytes32 priceFeedId;
+    uint256 decimals;
+  }
+
+  PythConfig internal pythConfig;
+
+  /// @notice emitted when pyth config are set
+  event PythConfigSet(bool available, uint256 stalenessSeconds, bytes32 priceFeedId, uint256 decimals);
+
   struct WitnetConfig {
     bool available;
     bytes32 pairA;
@@ -39,6 +53,7 @@ contract AnchoredView is OwnerIsCreator {
 
   // The price oracle
   IMojitoOracle public mojitoOracle;
+  IPythOracle public pythOracle;
   IERC2362 public witnetOracle;
 
   /**
@@ -47,6 +62,14 @@ contract AnchoredView is OwnerIsCreator {
    * @param current the address of the new mojito oracle contract
    */
   event MojitoOracleSet(IMojitoOracle old, IMojitoOracle current);
+
+  /**
+   * @notice emitted when a new pyth oracle contract is set
+   * @param old the address prior to the current setting
+   * @param current the address of the new witnet oracle contract
+   */
+  event PythOracleSet(IPythOracle old, IPythOracle current);
+
   /**
    * @notice emitted when a new witnet oracle contract is set
    * @param old the address prior to the current setting
@@ -59,17 +82,20 @@ contract AnchoredView is OwnerIsCreator {
 
   /*
    * @param _mojitoOracle address of the mojito oracle contract
+   * @param _pythOracle address of the pyth oracle contract
    * @param _witnetOracle address of the witnet oracle contract
    * @param _decimals answers are stored in fixed-point format, with this many digits of precision
    * @param _validateAnswerEnabled whether to enable the switch for validate answer
    */
   constructor(
     address _mojitoOracle,
+    address _pythOracle,
     address _witnetOracle,
     uint8 _decimals,
     bool _validateAnswerEnabled
   ) {
     _setMojitoOracle(IMojitoOracle(_mojitoOracle));
+    _setPythOracle(IPythOracle(_pythOracle));
     _setWitnetOracle(IERC2362(_witnetOracle));
     // pow(10, _decimals)
     answerBaseUnit = 10**_decimals;
@@ -93,6 +119,22 @@ contract AnchoredView is OwnerIsCreator {
   }
 
   /**
+   * @notice sets the mojito twap oracle
+   * @param _oracle the address of the mojito oracle contract
+   */
+  function setPythOracle(IPythOracle _oracle) external onlyOwner {
+    _setPythOracle(_oracle);
+  }
+
+  function _setPythOracle(IPythOracle _oracle) internal {
+    IPythOracle oldOracle = pythOracle;
+    if (_oracle != oldOracle) {
+      pythOracle = _oracle;
+      emit PythOracleSet(oldOracle, _oracle);
+    }
+  }
+
+  /**
    * @notice sets the witnet oracle
    * @param _oracle the address of the witnet oracle contract
    */
@@ -112,6 +154,19 @@ contract AnchoredView is OwnerIsCreator {
     if (mojitoConfig.available) {
       uint256 twapPrice = mojitoOracle.getMojitoTwap(mojitoConfig.pairA);
       return twapPrice.mul(answerBaseUnit).div(mojitoConfig.pairABaseUnit);
+    }
+    return 0;
+  }
+
+  function _getPythPriceInternal() internal view returns (uint256) {
+    if (pythConfig.available) {
+      PythStructs.Price memory retrievedPrice = pythOracle.getPriceUnsafe(pythConfig.priceFeedId);
+      uint256 stalenessSeconds = pythConfig.stalenessSeconds;
+      if (diff(block.timestamp, retrievedPrice.publishTime) <= stalenessSeconds) {
+        uint256 baseConvertion = 10**uint256(int256(pythConfig.decimals) + retrievedPrice.expo);
+        return uint256(retrievedPrice.price * int256(baseConvertion));
+      }
+      return 0;
     }
     return 0;
   }
@@ -166,6 +221,44 @@ contract AnchoredView is OwnerIsCreator {
     )
   {
     return (mojitoConfig.available, mojitoConfig.pairA, mojitoConfig.pairABaseUnit);
+  }
+
+  /**
+   * @notice sets pyth parameters
+   * @param _available is the price available
+   * @param _stalenessSeconds is how long before we consider the feed price to be stale
+   * @param _priceFeedId the price feed ids for evm chains differs depending on whether they are a mainnet or testnet
+   * @param _decimals converted price decimal
+   * @dev must be called by owner
+   */
+  function setPythConfig(
+    bool _available,
+    uint256 _stalenessSeconds,
+    bytes32 _priceFeedId,
+    uint256 _decimals
+  ) external onlyOwner {
+    pythConfig.available = _available;
+    pythConfig.stalenessSeconds = _stalenessSeconds;
+    pythConfig.priceFeedId = _priceFeedId;
+    pythConfig.decimals = _decimals;
+    emit PythConfigSet(_available, _stalenessSeconds, _priceFeedId, _decimals);
+  }
+
+  /*
+   * @notice gets the pyth config
+   * @return The config object
+   */
+  function getPythConfig()
+    external
+    view
+    returns (
+      bool available,
+      uint256 stalenessSeconds,
+      bytes32 priceFeedId,
+      uint256 decimals
+    )
+  {
+    return (pythConfig.available, pythConfig.stalenessSeconds, pythConfig.priceFeedId, pythConfig.decimals);
   }
 
   /**
@@ -225,6 +318,14 @@ contract AnchoredView is OwnerIsCreator {
   }
 
   /**
+   * @notice Get the pyth oracle price for a underlying
+   * @return Price denominated in USD, with 8 decimals
+   */
+  function getPythPrice() external view returns (uint256) {
+    return _getPythPriceInternal();
+  }
+
+  /**
    * @notice Get the witnet oracle price for a underlying
    * @return Price denominated in USD, with 8 decimals
    */
@@ -251,6 +352,14 @@ contract AnchoredView is OwnerIsCreator {
       validateAnswerEnabled = false;
 
       emit ValidateAnswerDisabled();
+    }
+  }
+
+  function diff(uint256 x, uint256 y) internal pure returns (uint256) {
+    if (x > y) {
+      return x - y;
+    } else {
+      return y - x;
     }
   }
 }

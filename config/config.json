@@ -4,6 +4,7 @@
     "mojitoOracle": "0xd6c5ac4A130E3B296cCD6443F99d894b8c9dbb23",
     "mojitoOracleProxy": "0xF0C516F6192FAbBD85398a4EAc9b5f9805011fdF",
     "proposedMojitoOracle": "0xDdAA1e87CfC9f4e118Fd17D2B1971Ce58Ca62852",
+    "pythOracle": "0x15D35b8985e350f783fe3d95401401E194ff1E6f",
     "witnetOracle": "0xba7CF62498340fa3734EC51Ca8A69928F0d9E03a",
     "skcs": "0xFfF08853339EcFc369988b3998317e031aeA226d"
   },
@@ -12,6 +13,7 @@
     "mojitoOracle": "0x6ed03de8d8ba4c90e7c8a2317bed899af1959491",
     "mojitoOracleProxy": "0x09515646b5833526Dff12FAE9B03754c7f0E0a8F",
     "proposedMojitoOracle": "",
-    "witnetOracle": "0xD39D4d972C7E166856c4eb29E54D3548B4597F53"
+    "pythOracle": "0xE0d0e68297772Dd5a1f1D99897c581E2082dbA5B",
+    "witnetOracle": "0xba7CF62498340fa3734EC51Ca8A69928F0d9E03a"
   }
 }

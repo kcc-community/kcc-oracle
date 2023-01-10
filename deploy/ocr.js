@@ -1,5 +1,6 @@
 const {verify} = require("../helper-functions")
 const aggregators = require("../config/ocr.json");
+const config = require("../config/config.json");
 const {table} = require("table");
 const hre = require("hardhat");
 let result = [["desc", "ocr", "proxy"]];
@@ -17,14 +18,31 @@ module.exports = async function ({
     const {deployer} = await getNamedAccounts();
     const waitBlockConfirmations = 3
 
+    let oracleConfig
+    if (chainId===321){
+        oracleConfig = config.mainnet
+    } else {
+        oracleConfig = config.testnet
+    }
     try {
+        let k=0
         for (let index = 0; index < aggregators.length; index++) {
             const aggregator = aggregators[index];
-            if (aggregator.chainid.toString() === chainId && !aggregator.deploy) {
-                console.log(`${index + 1} depoying ${aggregator.description} module`);
+            if (aggregator.chainId.toString() === chainId && !aggregator.deploy) {
+                k++
+                console.log(`${k + 1} depoying ${aggregator.description} module`);
                 await deploy("AccessControlledOffchainAggregator", {
                     from: deployer,
-                    args: [95, 105, 8, aggregator.description],
+                    args: [
+                        aggregator.lowerBoundAnchorRatio,
+                        aggregator.upperBoundAnchorRatio,
+                        aggregator.decimals,
+                        aggregator.description,
+                        oracleConfig.mojitoOracleProxy,
+                        oracleConfig.pythOracle,
+                        oracleConfig.witnetOracle,
+                        aggregator.validateAnswerEnabled
+                    ],
                     log: true,
                     deterministicDeployment: false,
                     waitConfirmations: waitBlockConfirmations,
@@ -57,19 +75,19 @@ module.exports = async function ({
                 const setConfigTx = await ocrInstance.setConfig(signer, transmitter);
                 await setConfigTx.wait();
 
-                log("add Access ", proxyInstance.address);
-                const addAccessTx = await ocrInstance.addAccess(proxyInstance.address);
+                log("add Access ", aggregator.proxy_address);
+                const addAccessTx = await ocrInstance.addAccess(aggregator.proxy_address);
                 await addAccessTx.wait();
 
-                let owner = process.env.OWNER
-                const tx = await ocrInstance.transferOwnership(owner);
-                await tx.wait();
+                // let owner = process.env.OWNER
+                // const tx = await ocrInstance.transferOwnership(owner);
+                // await tx.wait();
+                //
+                // console.log("transferOwnership ", owner);
+                // const proxyTx = await proxyInstance.transferOwnership(owner);
+                // await proxyTx.wait();
 
-                console.log("transferOwnership ", owner);
-                const proxyTx = await proxyInstance.transferOwnership(owner);
-                await proxyTx.wait();
-
-                log("Done!")
+                log(`${aggregator.description} Done!`)
 
                 // Verify Contract
                 if (chainId !== '322' && chainId !== '321') {

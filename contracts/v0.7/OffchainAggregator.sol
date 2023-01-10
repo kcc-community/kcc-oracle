@@ -84,6 +84,7 @@ contract OffchainAggregator is OwnerIsCreator, AggregatorV2V3Interface, TypeAndV
    * @param _decimals answers are stored in fixed-point format, with this many digits of precision
    * @param _description short human-readable description of observable this contract's answers pertain to
    * @param _mojitoOracle address of the mojito oracle contract
+   * @param _pythOracle address of the pyth oracle contract
    * @param _witnetOracle address of the witnet oracle contract
    * @param _validateAnswerEnabled whether to enable the switch for validate answer
    */
@@ -93,9 +94,10 @@ contract OffchainAggregator is OwnerIsCreator, AggregatorV2V3Interface, TypeAndV
     uint8 _decimals,
     string memory _description,
     address _mojitoOracle,
+    address _pythOracle,
     address _witnetOracle,
     bool _validateAnswerEnabled
-  ) AnchoredView(_mojitoOracle, _witnetOracle, _decimals, _validateAnswerEnabled) {
+  ) AnchoredView(_mojitoOracle, _pythOracle, _witnetOracle, _decimals, _validateAnswerEnabled) {
     lowerBoundAnchorRatio = _lowerBoundAnchorRatio;
     upperBoundAnchorRatio = _upperBoundAnchorRatio;
     decimals = _decimals;
@@ -389,6 +391,7 @@ contract OffchainAggregator is OwnerIsCreator, AggregatorV2V3Interface, TypeAndV
     uint32 indexed aggregatorRoundId,
     uint256 reporterPrice,
     uint256 anchorMojitoPrice,
+    uint256 anchorPythPrice,
     uint256 anchorWitnetPrice,
     uint256 updatedAt
   );
@@ -404,18 +407,24 @@ contract OffchainAggregator is OwnerIsCreator, AggregatorV2V3Interface, TypeAndV
     if (isWithinAnchor(reporterPrice, anchorMojitoPrice)) {
       return true;
     } else {
-      uint256 anchorWitnetPrice = _getWitnetPriceInternal();
-      if (isWithinAnchor(reporterPrice, anchorWitnetPrice)) {
+      uint256 anchorPythPrice = _getPythPriceInternal();
+      if (isWithinAnchor(reporterPrice, anchorPythPrice)) {
         return true;
       } else {
-        emit AnswerGuarded(
-          s_hotVars.latestAggregatorRoundId + 1,
-          reporterPrice,
-          anchorMojitoPrice,
-          anchorWitnetPrice,
-          block.timestamp
-        );
-        return false;
+        uint256 anchorWitnetPrice = _getWitnetPriceInternal();
+        if (isWithinAnchor(reporterPrice, anchorWitnetPrice)) {
+          return true;
+        } else {
+          emit AnswerGuarded(
+            s_hotVars.latestAggregatorRoundId + 1,
+            reporterPrice,
+            anchorMojitoPrice,
+            anchorPythPrice,
+            anchorWitnetPrice,
+            block.timestamp
+          );
+          return false;
+        }
       }
     }
   }
