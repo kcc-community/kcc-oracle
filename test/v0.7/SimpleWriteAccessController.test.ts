@@ -1,8 +1,8 @@
 import { ethers } from 'hardhat'
-import { publicAbi } from './test-helpers/helpers'
+import { publicAbi } from '../test-helpers/helpers'
 import { assert, expect } from 'chai'
 import { Contract, ContractFactory, Transaction } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
+import { Personas, getUsers } from '../test-helpers/setup'
 
 let personas: Personas
 
@@ -12,7 +12,7 @@ let controller: Contract
 before(async () => {
   personas = (await getUsers()).personas
   controllerFactory = await ethers.getContractFactory(
-    'contracts/SimpleWriteAccessController.sol:SimpleWriteAccessController',
+    'contracts/v0.7/SimpleWriteAccessController.sol:SimpleWriteAccessController',
     personas.Carol,
   )
 })

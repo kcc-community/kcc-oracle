@@ -35,8 +35,8 @@ yarn test
 ```shell
 mkdir flat
 npx hardhat flatten <path-to-contract> >> <flat-contract-name>.sol
-npx hardhat flatten contracts/EACAggregatorProxy.sol >> flat/EACAggregatorProxy.sol
-npx hardhat flatten contracts/AccessControlledOffchainAggregator.sol >> flat/AccessControlledOffchainAggregator.sol
+npx hardhat flatten contracts/v0.7/EACAggregatorProxy.sol >> flat/EACAggregatorProxy.sol
+npx hardhat flatten contracts/v0.7/AccessControlledOffchainAggregator.sol >> flat/AccessControlledOffchainAggregator.sol
 ```
 
 ## Contract addresses

@@ -8,9 +8,9 @@ import {
   Signer,
   ContractTransaction,
 } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
-import { bigNumEquals } from './test-helpers/matchers'
-import { publicAbi } from './test-helpers/helpers'
+import { Personas, getUsers } from '../test-helpers/setup'
+import { bigNumEquals } from '../test-helpers/matchers'
+import { publicAbi } from '../test-helpers/helpers'
 
 let personas: Personas
 let ocrAggregatorFactory: ContractFactory
@@ -20,13 +20,13 @@ let witnetPriceTestFactory: ContractFactory
 before(async () => {
   personas = (await getUsers()).personas
   ocrAggregatorFactory = await ethers.getContractFactory(
-    'contracts/OffchainAggregator.sol:OffchainAggregator',
+    'contracts/v0.7/OffchainAggregator.sol:OffchainAggregator',
   )
   mojitoOracleTestFactory = await ethers.getContractFactory(
-    'contracts/tests/MockMojitoOracle.sol:MockMojitoOracle',
+    'contracts/v0.7/tests/MockMojitoOracle.sol:MockMojitoOracle',
   )
   witnetPriceTestFactory = await ethers.getContractFactory(
-    'contracts/tests/MockWitnetPriceRouter.sol:MockWitnetPriceRouter',
+    'contracts/v0.7/tests/MockWitnetPriceRouter.sol:MockWitnetPriceRouter',
   )
 })
 

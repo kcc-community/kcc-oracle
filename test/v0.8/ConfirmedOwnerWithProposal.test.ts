@@ -1,9 +1,9 @@
 import { ethers } from 'hardhat'
-import { publicAbi } from './test-helpers/helpers'
+import { publicAbi } from '../test-helpers/helpers'
 import { assert, expect } from 'chai'
 import { Contract, ContractFactory, Signer } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
-import { evmRevert } from './test-helpers/matchers'
+import { Personas, getUsers } from '../test-helpers/setup'
+import { evmRevert } from '../test-helpers/matchers'
 
 let confirmedOwnerTestHelperFactory: ContractFactory
 let ConfirmedOwnerWithProposalFactory: ContractFactory
@@ -21,11 +21,11 @@ before(async () => {
   newOwner = personas.Ned
 
   confirmedOwnerTestHelperFactory = await ethers.getContractFactory(
-    'contracts/tests/ConfirmedOwnerTestHelper.sol:ConfirmedOwnerTestHelper',
+    'contracts/v0.7/tests/ConfirmedOwnerTestHelper.sol:ConfirmedOwnerTestHelper',
     owner,
   )
   ConfirmedOwnerWithProposalFactory = await ethers.getContractFactory(
-    'contracts//ConfirmedOwnerWithProposal.sol:ConfirmedOwnerWithProposal',
+    'contracts/v0.8//ConfirmedOwnerWithProposal.sol:ConfirmedOwnerWithProposal',
     owner,
   )
 })

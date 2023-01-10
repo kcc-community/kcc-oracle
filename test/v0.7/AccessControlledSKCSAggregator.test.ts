@@ -8,9 +8,9 @@ import {
   ContractTransaction,
   Signer,
 } from 'ethers'
-import { getUsers, Personas } from './test-helpers/setup'
-import { bigNumEquals } from './test-helpers/matchers'
-import { publicAbi } from './test-helpers/helpers'
+import { getUsers, Personas } from '../test-helpers/setup'
+import { bigNumEquals } from '../test-helpers/matchers'
+import { publicAbi } from '../test-helpers/helpers'
 
 let personas: Personas
 let acskcsAggregatorFactory: ContractFactory
@@ -22,18 +22,18 @@ before(async () => {
   personas = (await getUsers()).personas
 
   mockSKCSFactory = await ethers.getContractFactory(
-    'contracts/tests/MockSKCS.sol:MockSKCS',
+    'contracts/v0.7/tests/MockSKCS.sol:MockSKCS',
   )
 
   mockV2AggregatorFactory = await ethers.getContractFactory(
-    'contracts/tests/MockV2Aggregator.sol:MockV2Aggregator',
+    'contracts/v0.7/tests/MockV2Aggregator.sol:MockV2Aggregator',
   )
 
   acskcsAggregatorFactory = await ethers.getContractFactory(
-    'contracts/skcs/AccessControlledSKCSAggregator.sol:AccessControlledSKCSAggregator',
+    'contracts/v0.7/skcs/AccessControlledSKCSAggregator.sol:AccessControlledSKCSAggregator',
   )
   ocrTestFactory = await ethers.getContractFactory(
-    'contracts/tests/OCRTestHelper.sol:OCRTestHelper',
+    'contracts/v0.7/tests/OCRTestHelper.sol:OCRTestHelper',
   )
 })
 

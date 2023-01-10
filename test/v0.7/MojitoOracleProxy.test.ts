@@ -1,9 +1,9 @@
 import { ethers } from 'hardhat'
-import { numToBytes32, publicAbi } from './test-helpers/helpers'
+import { numToBytes32, publicAbi } from '../test-helpers/helpers'
 import { assert } from 'chai'
 import { BigNumber, constants, Contract, ContractFactory, Signer } from 'ethers'
-import { Personas, getUsers } from './test-helpers/setup'
-import { bigNumEquals, evmRevert } from './test-helpers/matchers'
+import { Personas, getUsers } from '../test-helpers/setup'
+import { bigNumEquals, evmRevert } from '../test-helpers/matchers'
 
 let personas: Personas
 let defaultAccount: Signer
@@ -20,22 +20,22 @@ before(async () => {
   defaultAccount = users.roles.defaultAccount
 
   mojitoOracleProxyFactory = await ethers.getContractFactory(
-    'contracts/mojito/MojitoOracleProxy.sol:MojitoOracleProxy',
+    'contracts/v0.7/mojito/MojitoOracleProxy.sol:MojitoOracleProxy',
     defaultAccount,
   )
 
   mojitoOracleFactory = await ethers.getContractFactory(
-    'contracts/mojito/MojitoOracle.sol:MojitoOracle',
+    'contracts/v0.7/mojito/MojitoOracle.sol:MojitoOracle',
     defaultAccount,
   )
 
   mockMojitoOracleFactory = await ethers.getContractFactory(
-    'contracts/tests/MockMojitoOracle.sol:MockMojitoOracle',
+    'contracts/v0.7/tests/MockMojitoOracle.sol:MockMojitoOracle',
     defaultAccount,
   )
 
   mockMojitoOracleFactoryFactory = await ethers.getContractFactory(
-    'contracts/tests/MockMojitoFactory.sol:MockMojitoFactory',
+    'contracts/v0.7/tests/MockMojitoFactory.sol:MockMojitoFactory',
     defaultAccount,
   )
 })
