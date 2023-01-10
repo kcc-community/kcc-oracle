@@ -15,7 +15,8 @@ import { publicAbi } from '../test-helpers/helpers'
 let personas: Personas
 let ocrAggregatorFactory: ContractFactory
 let mojitoOracleTestFactory: ContractFactory
-let witnetPriceTestFactory: ContractFactory
+let pythOracleTestFactory: ContractFactory
+let witnetOracleTestFactory: ContractFactory
 
 before(async () => {
   personas = (await getUsers()).personas
@@ -25,7 +26,10 @@ before(async () => {
   mojitoOracleTestFactory = await ethers.getContractFactory(
     'contracts/v0.7/tests/MockMojitoOracle.sol:MockMojitoOracle',
   )
-  witnetPriceTestFactory = await ethers.getContractFactory(
+  pythOracleTestFactory = await ethers.getContractFactory(
+    'contracts/v0.7/tests/MockPyth.sol:MockPyth',
+  )
+  witnetOracleTestFactory = await ethers.getContractFactory(
     'contracts/v0.7/tests/MockWitnetPriceRouter.sol:MockWitnetPriceRouter',
   )
 })
@@ -45,7 +49,8 @@ describe('OffchainAggregator', () => {
   let aggregator: Contract
   let configBlockNumber: BigNumber
   let mojitoOracleTest: Contract
-  let witnetPriceTest: Contract
+  let pythOracleTest: Contract
+  let witnetOracleTest: Contract
 
   async function setOCRConfig(
     aggregator: Contract,
@@ -91,7 +96,11 @@ describe('OffchainAggregator', () => {
       .connect(personas.Carol)
       .deploy()
 
-    witnetPriceTest = await witnetPriceTestFactory
+    pythOracleTest = await pythOracleTestFactory
+      .connect(personas.Carol)
+      .deploy()
+
+    witnetOracleTest = await witnetOracleTestFactory
       .connect(personas.Carol)
       .deploy()
 
@@ -103,7 +112,8 @@ describe('OffchainAggregator', () => {
         decimals,
         description,
         mojitoOracleTest.address,
-        witnetPriceTest.address,
+        pythOracleTest.address,
+        witnetOracleTest.address,
         validateAnswerEnabled,
       )
     assert.equal(answerBaseUnit, await aggregator.answerBaseUnit())
@@ -122,6 +132,8 @@ describe('OffchainAggregator', () => {
       'getTransmitters',
       'getMojitoConfig',
       'getMojitoPrice',
+      'getPythConfig',
+      'getPythPrice',
       'getWitnetConfig',
       'getWitnetPrice',
       'latestAnswer',
@@ -142,11 +154,14 @@ describe('OffchainAggregator', () => {
       'validateAnswerEnabled',
       'version',
       'witnetOracle',
+      'pythOracle',
       // Owned methods:
       'acceptOwnership',
       'owner',
       'setMojitoConfig',
       'setMojitoOracle',
+      'setPythConfig',
+      'setPythOracle',
       'setWitnetConfig',
       'setWitnetOracle',
       'transferOwnership',
@@ -514,7 +529,50 @@ describe('OffchainAggregator', () => {
 
         await expect(tx)
           .to.emit(aggregator, 'AnswerGuarded')
-          .withArgs(1, median, BigNumber.from(100000000), 0, block.timestamp)
+          .withArgs(1, median, BigNumber.from(100000000), 0, 0, block.timestamp)
+      })
+    })
+
+    describe('set correct pyth price and transmit', () => {
+      beforeEach(async () => {
+        const stalenessSeconds = 600
+        const kcsPriceFeedId =
+          '0xac541125cba1f87cd7048ed465faaca653784605e05fc1ee90b979f0a4eb57a2'
+        const priceFormPyth = BigNumber.from(3000010045008).toNumber()
+
+        await pythOracleTest
+          .connect(personas.Carol)
+          .setPrice(kcsPriceFeedId, priceFormPyth)
+
+        const tx = await aggregator
+          .connect(personas.Carol)
+          .setPythConfig(true, stalenessSeconds, kcsPriceFeedId, 8)
+        await expect(tx)
+          .to.emit(aggregator, 'PythConfigSet')
+          .withArgs(true, stalenessSeconds, kcsPriceFeedId, 8)
+
+        const pythConfig = await aggregator.getPythConfig()
+        assert.equal(stalenessSeconds, pythConfig.stalenessSeconds)
+        assert.equal(kcsPriceFeedId, pythConfig.priceFeedId)
+        bigNumEquals(priceFormPyth, await aggregator.getPythPrice())
+      })
+
+      it('emits a log', async () => {
+        const tx = await transmitOCR(
+          aggregator,
+          testKey,
+          personas.Ned,
+          median,
+          observationsTimestamp,
+        )
+        await expect(tx)
+          .to.emit(aggregator, 'NewTransmission')
+          .withArgs(
+            1,
+            median,
+            await personas.Ned.getAddress(),
+            observationsTimestamp,
+          )
       })
     })
 
@@ -529,7 +587,7 @@ describe('OffchainAggregator', () => {
           .connect(personas.Carol)
           .updatePrice(priceFormMojito)
 
-        await witnetPriceTest
+        await witnetOracleTest
           .connect(personas.Carol)
           .updatePrice(priceFormWitnet)
 
@@ -606,7 +664,7 @@ describe('OffchainAggregator', () => {
           .connect(personas.Carol)
           .updatePrice(priceFormMojito)
 
-        await witnetPriceTest
+        await witnetOracleTest
           .connect(personas.Carol)
           .updatePrice(priceFormWitnet)
 
@@ -678,6 +736,7 @@ describe('OffchainAggregator', () => {
             1,
             median,
             0,
+            0,
             BigNumber.from(priceFormWitnet)
               .mul(priceFormWitnet)
               .mul(answerBaseUnit)
@@ -694,7 +753,7 @@ describe('OffchainAggregator', () => {
           .connect(personas.Carol)
           .updatePrice(priceFormMojito)
 
-        await witnetPriceTest
+        await witnetOracleTest
           .connect(personas.Carol)
           .updatePrice(priceFormWitnet)
 
@@ -731,7 +790,7 @@ describe('OffchainAggregator', () => {
 
         await expect(tx)
           .to.emit(aggregator, 'AnswerGuarded')
-          .withArgs(1, median, 0, 0, block.timestamp)
+          .withArgs(1, median, 0, 0, 0, block.timestamp)
       })
     })
   })
@@ -850,20 +909,43 @@ describe('OffchainAggregator', () => {
     })
   })
 
+  describe('#setPythOracle', () => {
+    describe('when called by a non-owner', () => {
+      it('reverts', async () => {
+        await expect(
+          aggregator
+            .connect(personas.Eddy)
+            .setPythOracle(pythOracleTest.address),
+        ).to.be.revertedWith('Only callable by owner')
+      })
+    })
+
+    describe('set pyth oracle success', () => {
+      it('emits a success log', async () => {
+        let pythPriceTest2 = await pythOracleTestFactory
+          .connect(personas.Carol)
+          .deploy()
+        await aggregator
+          .connect(personas.Carol)
+          .setPythOracle(pythPriceTest2.address)
+      })
+    })
+  })
+
   describe('#setWitnetOracle', () => {
     describe('when called by a non-owner', () => {
       it('reverts', async () => {
         await expect(
           aggregator
             .connect(personas.Eddy)
-            .setWitnetOracle(witnetPriceTest.address),
+            .setWitnetOracle(witnetOracleTest.address),
         ).to.be.revertedWith('Only callable by owner')
       })
     })
 
     describe('set witnet oracle success', () => {
       it('emits a success log', async () => {
-        let witnetPriceTest2 = await witnetPriceTestFactory
+        let witnetPriceTest2 = await witnetOracleTestFactory
           .connect(personas.Carol)
           .deploy()
         await aggregator

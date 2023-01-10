@@ -16,6 +16,7 @@ let personas: Personas
 let acocrAggregatorFactory: ContractFactory
 let ocrTestFactory: ContractFactory
 let mojitoOracleTestFactory: ContractFactory
+let pythOracleTestFactory: ContractFactory
 let witnetPriceTestFactory: ContractFactory
 
 before(async () => {
@@ -28,6 +29,9 @@ before(async () => {
   )
   mojitoOracleTestFactory = await ethers.getContractFactory(
     'contracts/v0.7/tests/MockMojitoOracle.sol:MockMojitoOracle',
+  )
+  pythOracleTestFactory = await ethers.getContractFactory(
+    'contracts/v0.7/tests/MockPyth.sol:MockPyth',
   )
   witnetPriceTestFactory = await ethers.getContractFactory(
     'contracts/v0.7/tests/MockWitnetPriceRouter.sol:MockWitnetPriceRouter',
@@ -53,6 +57,7 @@ describe('AccessControlledOffchainAggregator', () => {
   let aggregatorTest: Contract
   let configBlockNumber: BigNumber
   let mojitoOracleTest: Contract
+  let pythOracleTest: Contract
   let witnetPriceTest: Contract
 
   async function setOCRConfig(
@@ -135,6 +140,10 @@ describe('AccessControlledOffchainAggregator', () => {
       .connect(personas.Carol)
       .deploy()
 
+    pythOracleTest = await pythOracleTestFactory
+      .connect(personas.Carol)
+      .deploy()
+
     witnetPriceTest = await witnetPriceTestFactory
       .connect(personas.Carol)
       .deploy()
@@ -147,6 +156,7 @@ describe('AccessControlledOffchainAggregator', () => {
         decimals,
         description,
         mojitoOracleTest.address,
+        pythOracleTest.address,
         witnetPriceTest.address,
         validateAnswerEnabled,
       )
@@ -168,6 +178,8 @@ describe('AccessControlledOffchainAggregator', () => {
       'getRoundData',
       'getMojitoConfig',
       'getMojitoPrice',
+      'getPythConfig',
+      'getPythPrice',
       'getTimestamp',
       'getTransmitters',
       'getWitnetConfig',
@@ -183,6 +195,7 @@ describe('AccessControlledOffchainAggregator', () => {
       'mojitoOracle',
       'upperBoundAnchorRatio',
       'owner',
+      'pythOracle',
       'removeAccess',
       'setAnchorRatio',
       'setConfig',
@@ -197,6 +210,8 @@ describe('AccessControlledOffchainAggregator', () => {
       'owner',
       'setMojitoConfig',
       'setMojitoOracle',
+      'setPythConfig',
+      'setPythOracle',
       'setWitnetConfig',
       'setWitnetOracle',
       'transferOwnership',

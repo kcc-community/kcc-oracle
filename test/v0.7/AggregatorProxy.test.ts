@@ -82,6 +82,7 @@ describe('AggregatorProxy', () => {
         'TEST / USDT',
         constants.AddressZero,
         constants.AddressZero,
+        constants.AddressZero,
         validateAnswerEnabled,
       )
     proxy = await aggregatorProxyFactory

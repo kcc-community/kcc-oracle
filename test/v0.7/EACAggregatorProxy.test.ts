@@ -94,6 +94,7 @@ describe('EACAggregatorProxy', () => {
         'TEST / USDT',
         constants.AddressZero,
         constants.AddressZero,
+        constants.AddressZero,
         validateAnswerEnabled,
       )
     const emptyAddress = constants.AddressZero
