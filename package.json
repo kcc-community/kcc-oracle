@@ -1,6 +1,6 @@
 {
   "name": "kcc-oracle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "kcc oracle contracts",
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "km:deploy": "hardhat --network km deploy",
     "kt:setconfig": "npx hardhat run scripts/setConfig.js --network kt",
     "kt:sac": "npx hardhat run scripts/setAocrConfig.js --network kt",
+    "kt:ca": "npx hardhat run scripts/confirmAggregator.js --network kt",
     "coverage": "hardhat coverage",
     "setup": "yarn compile",
     "prettier": "prettier --write test/**/*.ts && prettier --write contracts/**/*.sol && prettier --write contracts/**/*/*.sol && prettier --write test/**/*/*.ts"
@@ -61,10 +62,10 @@
     "eth-crypto": "^2.2.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.7.2",
-    "hardhat": "^2.12.4",
+    "hardhat": "^2.12.7",
     "hardhat-abi-exporter": "^2.10.1",
     "hardhat-contract-sizer": "^2.6.1",
-    "hardhat-deploy": "^0.11.22",
+    "hardhat-deploy": "^0.11.23",
     "hardhat-deploy-ethers": "^0.3.0-beta.13",
     "hardhat-spdx-license-identifier": "^2.1.0",
     "prettier": "^2.8.1",

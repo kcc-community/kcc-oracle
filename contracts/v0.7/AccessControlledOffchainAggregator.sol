@@ -35,7 +35,7 @@ contract AccessControlledOffchainAggregator is OffchainAggregator, SimpleReadAcc
    */
 
   function typeAndVersion() external pure virtual override returns (string memory) {
-    return "AccessControlledOffchainAggregator 1.0.0";
+    return "AccessControlledOffchainAggregator 2.0.0";
   }
 
   /*

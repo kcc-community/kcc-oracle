@@ -1,5 +1,4 @@
 const {deployments, ethers, getNamedAccounts} = require("hardhat")
-const {get} = deployments;
 const aggregators = require("../config/ocr.json");
 const {table} = require("table");
 let result = [["desc", "ocr"]]
@@ -17,8 +16,8 @@ async function main() {
         '0x977ab71E93E75e25e4D13a5e11bcd1ad01516cA2',
         '0x93E06cb6B4C51132A98616f226aAe91578FEB6A3'
     ]
-    const aggregatorContract = (await get('AccessControlledOffchainAggregator'))
-    const proxyContract = (await get('EACAggregatorProxy'))
+    const aggregatorContract = (await deployments.getArtifact('AccessControlledOffchainAggregator'))
+    const proxyContract = (await deployments.getArtifact('EACAggregatorProxy'))
     let k = 0
     for (let index = 0; index < aggregators.length; index++) {
         const aggregator = aggregators[index];
@@ -26,45 +25,45 @@ async function main() {
             console.log(`${k + 1} config ${aggregator.description} module`);
             const aggregatorInstance = new ethers.Contract(aggregator.ocr_address, aggregatorContract.abi, ethers.provider);
 
-            // console.log("setConfig... ");
-            // const setConfigTx = await aggregatorInstance.connect(account).setConfig(signer, transmitter);
-            // await setConfigTx.wait()
-            // console.log("setConfig ok ", setConfigTx.hash);
-            //
-            // console.log("setMojitoConfig... ");
-            // const setMojitoConfigTx = await aggregatorInstance.connect(account).setMojitoConfig(
-            //     aggregator.mojitoConfig.available,
-            //     aggregator.mojitoConfig.pairA,
-            //     aggregator.mojitoConfig.pairABaseUnit,
-            // );
-            // await setMojitoConfigTx.wait()
-            // console.log("setMojitoConfig ok ", setMojitoConfigTx.hash);
-            //
-            // console.log("setPythConfig... ");
-            // const setPythConfigTx = await aggregatorInstance.connect(account).setPythConfig(
-            //     aggregator.pythConfig.available,
-            //     aggregator.pythConfig.stalenessSeconds,
-            //     aggregator.pythConfig.priceFeedId,
-            //     aggregator.pythConfig.decimals,
-            // );
-            // await setPythConfigTx.wait()
-            // console.log("setPythConfig ok ", setPythConfigTx.hash);
-            //
-            // console.log("setWitnetConfig... ");
-            // const setWitnetConfigTx = await aggregatorInstance.connect(account).setWitnetConfig(
-            //     aggregator.witnetConfig.available,
-            //     aggregator.witnetConfig.pairA,
-            //     aggregator.witnetConfig.pairB,
-            //     aggregator.witnetConfig.pairABaseUint,
-            //     aggregator.witnetConfig.pairBBaseUint,
-            // );
-            // await setWitnetConfigTx.wait()
-            // console.log("setWitnetConfig ok ", setWitnetConfigTx.hash);
-            //
-            // console.log("addAccess... ", aggregator.proxy_address);
-            // const addAccessTx = await aggregatorInstance.connect(account).addAccess(aggregator.proxy_address);
-            // await addAccessTx.wait()
-            // console.log("addAccess ok ", addAccessTx.hash);
+            console.log("setConfig... ");
+            const setConfigTx = await aggregatorInstance.connect(account).setConfig(signer, transmitter);
+            await setConfigTx.wait()
+            console.log("setConfig ok ", setConfigTx.hash);
+
+            console.log("setMojitoConfig... ");
+            const setMojitoConfigTx = await aggregatorInstance.connect(account).setMojitoConfig(
+                aggregator.mojitoConfig.available,
+                aggregator.mojitoConfig.pairA,
+                aggregator.mojitoConfig.pairABaseUnit,
+            );
+            await setMojitoConfigTx.wait()
+            console.log("setMojitoConfig ok ", setMojitoConfigTx.hash);
+
+            console.log("setPythConfig... ");
+            const setPythConfigTx = await aggregatorInstance.connect(account).setPythConfig(
+                aggregator.pythConfig.available,
+                aggregator.pythConfig.stalenessSeconds,
+                aggregator.pythConfig.priceFeedId,
+                aggregator.pythConfig.decimals,
+            );
+            await setPythConfigTx.wait()
+            console.log("setPythConfig ok ", setPythConfigTx.hash);
+
+            console.log("setWitnetConfig... ");
+            const setWitnetConfigTx = await aggregatorInstance.connect(account).setWitnetConfig(
+                aggregator.witnetConfig.available,
+                aggregator.witnetConfig.pairA,
+                aggregator.witnetConfig.pairB,
+                aggregator.witnetConfig.pairABaseUint,
+                aggregator.witnetConfig.pairBBaseUint,
+            );
+            await setWitnetConfigTx.wait()
+            console.log("setWitnetConfig ok ", setWitnetConfigTx.hash);
+
+            console.log("addAccess... ", aggregator.proxy_address);
+            const addAccessTx = await aggregatorInstance.connect(account).addAccess(aggregator.proxy_address);
+            await addAccessTx.wait()
+            console.log("addAccess ok ", addAccessTx.hash);
 
             const proxyInstance = new ethers.Contract(aggregator.proxy_address, proxyContract.abi, ethers.provider);
 
