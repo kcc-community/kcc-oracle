@@ -1,7 +1,7 @@
 [
   {
     "description": "BTC / USD",
-    "ocr_address": "0x74A5AC80aA900a7481F7D90D180C7a0dCa84Bf7f",
+    "ocr_address": "0x43bc76a22321dEfd60bcB23DE451E92B4fB3aD82",
     "proxy_address": "0xBb3423a913a9a69aD7Dba09B62abdFDE4643BAe4",
     "lowerBoundAnchorRatio": 95,
     "upperBoundAnchorRatio": 105,
@@ -25,12 +25,12 @@
       "pairABaseUint": "1000000",
       "pairBBaseUint": "0"
     },
-    "deploy": false,
+    "deploy": true,
     "chainId": 322
   },
   {
     "description": "ETH / USD",
-    "ocr_address": "0xC86C325bd7889b222e86a19C719FbF59E3035DD4",
+    "ocr_address": "0xF67fc18d343beB2C9a8672dd24949F0d3607E2B6",
     "proxy_address": "0x22337a9a305E081c0C801dd7B7b8eCF4966660bB",
     "lowerBoundAnchorRatio": 95,
     "upperBoundAnchorRatio": 105,
@@ -111,7 +111,7 @@
   },
   {
     "description": "USDT / USD",
-    "ocr_address": "0x1CB203F5567EBe4B91eC624592d4D0B329080cbA",
+    "ocr_address": "0xEdc21E39e0aA3769953DFd037cA7582696dC66D4",
     "proxy_address": "0x2bE470B8BD3CF5655dcC666CDe37E3E4D6cf3168",
     "decimals": 8,
     "lowerBoundAnchorRatio": 98,
@@ -140,7 +140,7 @@
   },
   {
     "description": "USDC / USD",
-    "ocr_address": "0x306A4D88fc012916656b9D1EBd8386562dc4d461",
+    "ocr_address": "0x5170ca09eD258e16BA6D245304574636B6bbD27a",
     "proxy_address": "0x91b66dAd926FaC824da9390D1aF6f68db391A5c0",
     "lowerBoundAnchorRatio": 98,
     "upperBoundAnchorRatio": 102,
@@ -169,7 +169,7 @@
   },
   {
     "description": "BTC / USD",
-    "ocr_address": "0x13cc7A061Ee93157f2bcE90645cD9f754428e08A",
+    "ocr_address": "0xe75b8525604dF746232c63BC0E831b323400A22F",
     "proxy_address": "0xFAce3f85602A8dc013217b61a97a9AFE7B2F276F",
     "lowerBoundAnchorRatio": 95,
     "upperBoundAnchorRatio": 105,
@@ -198,7 +198,7 @@
   },
   {
     "description": "ETH / USD",
-    "ocr_address": "0x0948C486F5CEDfb22CBc55DD2a3C9841043550Dd",
+    "ocr_address": "0x111a9bba0cE975A818AAa079926e986eCc2D572E",
     "proxy_address": "0x72E10386eBE0E3175f62BF3Edfc9A64aC3c5918a",
     "lowerBoundAnchorRatio": 95,
     "upperBoundAnchorRatio": 105,
@@ -251,7 +251,7 @@
       "pairABaseUint": "1000000",
       "pairBBaseUint": "0"
     },
-    "deploy": false,
+    "deploy": true,
     "chainId": 321
   },
   {
@@ -279,7 +279,7 @@
   },
   {
     "description": "USDT / USD",
-    "ocr_address": "0xbFBE130ce1302118e90148eeaeb5Ce0ad73a0c11",
+    "ocr_address": "0x5a1A788e2a65833E4334d3972De8afa41FD1A6Ee",
     "proxy_address": "0x001c1a168ba2a36D01a99542740C375c51615161",
     "lowerBoundAnchorRatio": 98,
     "upperBoundAnchorRatio": 102,
@@ -292,7 +292,7 @@
     },
     "pythConfig":{
       "available": true,
-      "stalenessSeconds": 900,
+      "stalenessSeconds": 1800,
       "priceFeedId": "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
       "decimals": 8
     },
@@ -308,7 +308,7 @@
   },
   {
     "description": "USDC / USD",
-    "ocr_address": "0x0f10d056b488ED7ad72EabE677A2fa5Bd665ef67",
+    "ocr_address": "0xdcF77f1137e000fBdCbAC9C3edEf90D979cdc8dd",
     "proxy_address": "0x1A165db46d431804B0082eb5BEbc307ffb97e31b",
     "lowerBoundAnchorRatio": 98,
     "upperBoundAnchorRatio": 102,
@@ -321,7 +321,7 @@
     },
     "pythConfig":{
       "available": true,
-      "stalenessSeconds": 900,
+      "stalenessSeconds": 1800,
       "priceFeedId": "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
       "decimals": 8
     },

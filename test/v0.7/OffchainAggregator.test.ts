@@ -41,7 +41,7 @@ describe('OffchainAggregator', () => {
   const description = 'KCS / USDT'
   const answerBaseUnit = 1e8
   const validateAnswerEnabled = true
-  const typeAndVersion = 'OffchainAggregator 1.0.0'
+  const typeAndVersion = 'OffchainAggregator 2.0.0'
   const initConfigCount = BigNumber.from(0)
   const testKey =
     '0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a'
@@ -191,8 +191,8 @@ describe('OffchainAggregator', () => {
       assert.equal(description, await aggregator.description())
     })
 
-    it('sets the version to 1', async () => {
-      bigNumEquals(1, await aggregator.version())
+    it('sets the version to 2', async () => {
+      bigNumEquals(2, await aggregator.version())
     })
 
     it('sets the typeAndVersion', async () => {

@@ -108,7 +108,7 @@ contract OffchainAggregator is OwnerIsCreator, AggregatorV2V3Interface, TypeAndV
    * Versioning
    */
   function typeAndVersion() external pure virtual override returns (string memory) {
-    return "OffchainAggregator 1.0.0";
+    return "OffchainAggregator 2.0.0";
   }
 
   /*
@@ -505,7 +505,7 @@ contract OffchainAggregator is OwnerIsCreator, AggregatorV2V3Interface, TypeAndV
   /**
    * @notice aggregator contract version
    */
-  uint256 public constant override version = 1;
+  uint256 public constant override version = 2;
 
   string internal s_description;
 
